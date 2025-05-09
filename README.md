@@ -1,4 +1,4 @@
-# Concatenate Files Script (`concat.py`)
+# Concatenate Files Script (`repo_prompt.py`)
 
 This script concatenates specified files into a single output. Each file's content is wrapped in a Markdown code fence, and a tree structure showing the included files (relative to their common ancestor directory) is prepended to the output.
 
@@ -14,7 +14,7 @@ The script uses `typer`, which will be automatically handled if you run it via `
 The script is designed to be run easily with `uv`. `uv` will create a temporary virtual environment, install dependencies specified in the script's header, and then execute the script.
 
 ```bash
-uv run concat.py [OPTIONS] FILES...
+uv run repo_prompt.py [OPTIONS] FILES...
 ```
 
 **Arguments:**
@@ -32,7 +32,7 @@ Suppose you have the following file structure:
 
 ```
 my_project/
-├── concat.py
+├── repo_prompt.py
 ├── notes.txt
 └── src/
     └── main.py
@@ -56,7 +56,7 @@ greet()
 You can concatenate these files by running the script from the `my_project` directory:
 
 ```bash
-uv run concat.py notes.txt src/main.py
+uv run repo_prompt.py notes.txt src/main.py
 ```
 
 **Example Output:**
@@ -82,7 +82,7 @@ greet()
 If you want to save the output to a file, for example `combined.md`:
 
 ```bash
-uv run concat.py notes.txt src/main.py -o combined.md
+uv run repo_prompt.py notes.txt src/main.py -o combined.md
 ```
 This will create `combined.md` with the content shown above.
 
