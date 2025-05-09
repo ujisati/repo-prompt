@@ -184,7 +184,16 @@ def main(
     concatenated_content: List[str] = []
     for p in absolute_paths:
         try:
-            content = p.read_text()
+            content: str
+            try:
+                # Attempt to read as UTF-8.
+                content = p.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                content = "[non-text content]"
+                print(f"Warning: File '{p}' is not valid UTF-8. Content replaced with placeholder.", file=sys.stderr)
+            # If other exceptions (e.g., PermissionError) occur during p.read_text(),
+            # they will be caught by the outer `except Exception as e`.
+
             # Determine path to display in fence (relative to common base)
             try:
                 display_path = p.relative_to(common_base)
