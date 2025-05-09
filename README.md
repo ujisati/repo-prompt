@@ -15,4 +15,3 @@ uv run repo_prompt.py [OPTIONS] FILES...
 ```
 
 ## Example Usage
-
