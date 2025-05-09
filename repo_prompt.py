@@ -17,7 +17,7 @@ import sys
 import os
 import glob
 from pathlib import Path
-from typing import List, Dict, Any, Set
+from typing import List, Dict, Any, Set, Optional
 
 app = typer.Typer(
     help="Concatenates files into a single Markdown output with a file tree.",
@@ -93,7 +93,7 @@ def main(
         help="Paths or glob patterns for files to concatenate.",
         # Validation (exists, file_okay, etc.) will be done after glob expansion
     ),
-    output_file: Path = typer.Option(
+    output_file: Optional[Path] = typer.Option(
         None,
         "--output",
         "-o",
@@ -196,18 +196,12 @@ def main(
 
             # Determine path to display in fence (relative to common base)
             try:
-                display_path = p.relative_to(common_base)
+                fence_id = p.relative_to(common_base)
             except ValueError:
                 # Fallback if path isn't relative (e.g., different drive case)
                 # Try relative to CWD or just show absolute path or filename?
-                try:
-                   display_path = p.relative_to(Path.cwd())
-                except ValueError:
-                   display_path = p # Absolute path
-                display_path = f"{display_path} (relative to {common_base})" # Add context
+                fence_id = p # Absolute path
 
-            # Use just the relative path string in the fence identifier for cleaner look
-            fence_id = str(display_path).replace(" (relative to ...)", "") # Clean up context string if added
 
             fence = f"```{fence_id}\n{content.strip()}\n```"
             concatenated_content.append(fence)

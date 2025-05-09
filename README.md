@@ -25,16 +25,4 @@ uv run repo_prompt.py src/*.py tests/*.py
 
 # Output to a specific file instead of stdout
 uv run repo_prompt.py --output prompt.md src/**/*.py README.md
-
-# Include a specific hidden file (if your shell doesn't expand it, quote it or use its direct path)
-uv run repo_prompt.py .env_example src/app.py
-
-# Use with paths containing spaces (ensure quotes if your shell requires it)
-uv run repo_prompt.py "my project/file one.txt" "my project/file two.md"
-
-# Concatenate all python files in the current directory and subdirectories, output to all_python.md
-uv run repo_prompt.py --output all_python.md ./**/*.py
-
-# Concatenate all markdown files in a 'docs' subdirectory
-uv run repo_prompt.py docs/**/*.md
 ```
